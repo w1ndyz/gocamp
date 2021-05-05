@@ -2,11 +2,12 @@ package main
 
 import (
 	"errors"
+	"log"
+
 	"github.com/w1ndyz/gocamp/ch02/dao"
 	"github.com/w1ndyz/gocamp/ch02/xerr"
 	"github.com/w1ndyz/gocamp/database"
 	_ "gorm.io/driver/mysql"
-	"log"
 )
 
 func init() {
