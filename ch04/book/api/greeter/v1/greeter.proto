@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package api.greeter.v1;
+
+option go_package = "./;greeter";
+option java_multiple_files = true;
+option java_package = "api.greeter.v1";
+
+import "google/api/annotations.proto";
+
+service Greeter {
+    rpc CreateGreeter (CreateGreeterRequest) returns (CreateGreeterReply) {
+        option (google.api.http) = {
+            post: "/v1/greeter/"
+            body: "*"
+        };
+    };
+    rpc UpdateGreeter (UpdateGreeterRequest) returns (UpdateGreeterReply) {
+        option (google.api.http) = {
+            put: "/v1/greeter/{id}"
+            body: "*"
+        };
+    };
+    rpc DeleteGreeter (DeleteGreeterRequest) returns (DeleteGreeterReply) {
+        option (google.api.http) = {
+            delete: "/v1/greeter/{id}"
+        };
+    };
+    rpc GetGreeter (GetGreeterRequest) returns (GetGreeterReply) {
+        option (google.api.http) = {
+            get: "/v1/greeter/{id}"
+        };
+    };
+}
+
+message CreateGreeterRequest {
+    GreeterData greeter = 1;
+}
+message CreateGreeterReply {
+    Result result = 1;
+    int64 id = 2;
+}
+
+message UpdateGreeterRequest {
+    GreeterData greeter = 1;
+}
+message UpdateGreeterReply {
+    Result result = 1;
+    GreeterData greeter = 2;
+}
+
+message DeleteGreeterRequest {
+    int64 id = 1;
+}
+message DeleteGreeterReply {
+    Result result = 1;
+}
+
+message GetGreeterRequest {
+    int64 id = 1;
+}
+message GetGreeterReply {
+    Result result = 1;
+    GreeterData greeter = 2;
+}
+
+message Result {
+    //0 - 成功，其它 - 失败
+    string code = 1;
+    //失败信息
+    string message = 2;
+}
+
+message GreeterData {
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
